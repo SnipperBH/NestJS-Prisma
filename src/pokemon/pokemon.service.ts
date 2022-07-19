@@ -1,7 +1,10 @@
+import { Pokemon } from "./entities/pokemon.entity";
+import { Prisma } from "@prisma/client";
 import { PrismaService } from "./../prisma/prisma.service";
 import { Injectable } from "@nestjs/common";
 import { CreatePokemonDto } from "./dto/create-pokemon.dto";
 import { UpdatePokemonDto } from "./dto/update-pokemon.dto";
+import { threadId } from "worker_threads";
 
 @Injectable()
 export class PokemonService {
@@ -17,14 +20,21 @@ export class PokemonService {
   }
 
   findOne(id: number) {
-    return `This action returns a #${id} pokemon`;
+    return this.prisma.pokemon.findUnique({
+      where: { id },
+    });
   }
 
-  update(id: number, updatePokemonDto: UpdatePokemonDto) {
-    return `This action updates a #${id} pokemon`;
+  update(id: number, data: UpdatePokemonDto) {
+    return this.prisma.pokemon.update({
+      where: { id },
+      data,
+    });
   }
 
   remove(id: number) {
-    return `This action removes a #${id} pokemon`;
+    return this.prisma.pokemon.delete({
+      where: { id },
+    });
   }
 }
