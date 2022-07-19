@@ -6,27 +6,46 @@ import { UpdatePokemonDto } from "./dto/update-pokemon.dto";
 
 @Injectable()
 export class PokemonService {
-  // eslint-disable-next-line prettier/prettier
   constructor(private readonly prisma: PrismaService) {}
 
   create(data: CreatePokemonDto) {
-    return this.prisma.pokemon.create({ data });
+    return this.prisma.pokemon.create({
+      data,
+      include: {
+        images: {
+          select: {
+            url: true,
+          },
+        },
+      },
+    });
   }
 
   findAll() {
-    return this.prisma.pokemon.findMany();
+    return this.prisma.pokemon.findMany({
+      include: {
+        images: true,
+      },
+    });
   }
 
   findOne(id: number) {
     return this.prisma.pokemon.findUnique({
       where: { id },
+      include: {
+        images: true,
+      },
     });
   }
 
   update(id: number, data: UpdatePokemonDto) {
+    console.log(data);
     return this.prisma.pokemon.update({
       where: { id },
       data,
+      include: {
+        images: true,
+      },
     });
   }
 
