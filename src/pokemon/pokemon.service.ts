@@ -1,11 +1,15 @@
-import { Injectable } from '@nestjs/common';
-import { CreatePokemonDto } from './dto/create-pokemon.dto';
-import { UpdatePokemonDto } from './dto/update-pokemon.dto';
+import { PrismaService } from "./../prisma/prisma.service";
+import { Injectable } from "@nestjs/common";
+import { CreatePokemonDto } from "./dto/create-pokemon.dto";
+import { UpdatePokemonDto } from "./dto/update-pokemon.dto";
 
 @Injectable()
 export class PokemonService {
+  // eslint-disable-next-line prettier/prettier
+  constructor(private readonly prisma: PrismaService) {}
+
   create(createPokemonDto: CreatePokemonDto) {
-    return 'This action adds a new pokemon';
+    return "This action adds a new pokemon";
   }
 
   findAll() {
