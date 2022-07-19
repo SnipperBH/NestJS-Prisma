@@ -1,10 +1,8 @@
-import { Pokemon } from "./entities/pokemon.entity";
-import { Prisma } from "@prisma/client";
-import { PrismaService } from "./../prisma/prisma.service";
 import { Injectable } from "@nestjs/common";
+
+import { PrismaService } from "./../prisma/prisma.service";
 import { CreatePokemonDto } from "./dto/create-pokemon.dto";
 import { UpdatePokemonDto } from "./dto/update-pokemon.dto";
-import { threadId } from "worker_threads";
 
 @Injectable()
 export class PokemonService {
